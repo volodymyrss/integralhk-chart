@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "integral-timesystem.fullname" . }}-test-connection"
+  labels:
+    {{- include "integral-timesystem.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "integral-timesystem.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
