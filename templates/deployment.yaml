@@ -27,6 +27,12 @@ spec:
       serviceAccountName: {{ include "integral-timesystem.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+
+      volumes:
+        - name: isilon-verso-integral
+          persistentVolumeClaim:
+            claimName: pvc-isilon-verso-integral{{ .Values.pv_suffix }}
+
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -35,18 +41,47 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 5000
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /healthcheck
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /healthcheck
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+
+          env:
+          - name: REP_BASE_PROD_CONS
+            value: /data/arc/rev_3
+          - name: REP_BASE_PROD_NRT
+            value: /data/rep_base_prod_nrt
+
+          volumeMounts:
+          - mountPath: /data/arc/rev_3
+            name: isilon-verso-integral
+            subPath: {{ .Values.isdc_verso.paths.rev_3 }}
+          {{- include "archive_mount_options" . | nindent 12 }}
+
+          - mountPath: /data/rep_base_prod
+            name: isilon-verso-integral
+            subPath: {{ .Values.isdc_verso.paths.rev_3 }}
+          {{- include "archive_mount_options" . | nindent 12 }}
+
+          - mountPath: /isdc/arc/rev_3
+            name: isilon-verso-integral
+            subPath: {{ .Values.isdc_verso.paths.rev_3 }}
+          {{- include "archive_mount_options" . | nindent 12 }}
+
+          - mountPath: /data/rep_base_prod_nrt
+            name: isilon-verso-integral
+            subPath: {{ .Values.isdc_verso.paths.pvphase_nrt_ops }}
+          {{- include "archive_mount_options" . | nindent 12 }}
+
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
