@@ -79,7 +79,9 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-nodeSelector: {}
+nodeSelector:
+    astro_isilon: "true"
+
 
 tolerations: []
 

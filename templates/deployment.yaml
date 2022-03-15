@@ -55,6 +55,8 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
 
           env:
+          - name: REP_BASE_PROD_ARC
+            value: /data/arc/rev_3
           - name: REP_BASE_PROD_CONS
             value: /data/arc/rev_3
           - name: REP_BASE_PROD_NRT
