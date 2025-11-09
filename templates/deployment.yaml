@@ -29,9 +29,9 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
 
       volumes:
-        - name: isilon-astro-integral
+        - name: isilon-verso-integral
           persistentVolumeClaim:
-            claimName: pvc-isilon-astro-integral{{ .Values.pv_suffix }}
+            claimName: pvc-isilon-verso-integral{{ .Values.pv_suffix }}
 
       containers:
         - name: {{ .Chart.Name }}
@@ -61,28 +61,26 @@ spec:
             value: /data/arc/rev_3
           - name: REP_BASE_PROD_NRT
             value: /data/rep_base_prod_nrt
-          - name: DUMP_LC_BINARY
-            value: /dump_lc/dump_ihklc
-          - name: DUMP_LC_PATH
-            value: /dump_lc
-          - name: REP_RT
-            value: /data/realtime/spiacs
-
 
           volumeMounts:
           - mountPath: /data/arc/rev_3
-            name: isilon-astro-integral
-            subPath: {{ .Values.isdc_astro.paths.rev_3 }}
+            name: isilon-verso-integral
+            subPath: {{ .Values.isdc_verso.paths.rev_3 }}
           {{- include "archive_mount_options" . | nindent 12 }}
 
           - mountPath: /data/rep_base_prod
-            name: isilon-astro-integral
-            subPath: {{ .Values.isdc_astro.paths.rev_3 }}
+            name: isilon-verso-integral
+            subPath: {{ .Values.isdc_verso.paths.rev_3 }}
           {{- include "archive_mount_options" . | nindent 12 }}
 
           - mountPath: /isdc/arc/rev_3
-            name: isilon-astro-integral
-            subPath: {{ .Values.isdc_astro.paths.rev_3 }}
+            name: isilon-verso-integral
+            subPath: {{ .Values.isdc_verso.paths.rev_3 }}
+          {{- include "archive_mount_options" . | nindent 12 }}
+
+          - mountPath: /data/rep_base_prod_nrt
+            name: isilon-verso-integral
+            subPath: {{ .Values.isdc_verso.paths.pvphase_nrt_ops }}
           {{- include "archive_mount_options" . | nindent 12 }}
 
 

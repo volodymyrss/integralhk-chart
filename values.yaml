@@ -80,31 +80,24 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 nodeSelector:
-    nfsRead: "True"
+    astro_isilon: "true"
 
 
 tolerations: []
 
 affinity: {}
 
-isdc_astro:
-  nfs_server: 10.40.46.34
-  #nfs_server: nfs-isilon.astro.unige.ch
+isdc_verso:
+  nfs_server: nfs-isilon.verso.unige.ch
 
-    #path_prefix: /ifs/astro/projects/integral/
-  path_prefix: /ifs/astro/projects/integral/archive7/isdc/arc/
+  path_prefix: /ifs/verso/projects/integral
 
   paths:
-    #ic_collection: isdc-critical-activities/ic-collection
-    #data_reduced_ddcache: data/reduced/ddcache-public-usr_astro_in-p1
-    #data_resources: data/resources
     rev_3: rev_3
-      #    pvphase_nrt_ops: pvphase/nrt/ops
-      #realtime: data/realtime
+    pvphase_nrt_ops: pvphase/nrt/ops
 
 
 pv_suffix: hk
 
 oda:
   archive_readonly: true
-
