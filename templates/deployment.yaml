@@ -85,6 +85,11 @@ spec:
             subPath: {{ .Values.isdc_astro.paths.rev_3 }}
           {{- include "archive_mount_options" . | nindent 12 }}
 
+          - mountPath: /data/rep_base_prod_nrt
+            name: isilon-astro-integral
+            subPath: {{ .Values.isdc_astro.paths.pvphase_nrt_ops }}
+          {{- include "archive_mount_options" . | nindent 12 }}
+
 
       {{- with .Values.nodeSelector }}
       nodeSelector:

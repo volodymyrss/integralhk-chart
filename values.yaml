@@ -92,14 +92,14 @@ isdc_astro:
   #nfs_server: nfs-isilon.astro.unige.ch
 
     #path_prefix: /ifs/astro/projects/integral/
-  path_prefix: /ifs/astro/projects/integral/archive7/isdc/arc/
+  path_prefix: /ifs/astro/projects/integral/archive7/isdc/
 
   paths:
     #ic_collection: isdc-critical-activities/ic-collection
     #data_reduced_ddcache: data/reduced/ddcache-public-usr_astro_in-p1
     #data_resources: data/resources
-    rev_3: rev_3
-      #    pvphase_nrt_ops: pvphase/nrt/ops
+    rev_3: arc/rev_3
+    pvphase_nrt_ops: pvphase/nrt/ops
       #realtime: data/realtime
 
 
